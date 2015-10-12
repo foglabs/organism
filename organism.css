@@ -1,0 +1,27 @@
+/* CSS declarations go here */
+
+body {
+  background-color: #223399;
+}
+
+input {
+  min-height: 35px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul, li, div {
+  display: inline;
+}
+
+.pic {
+  max-width: 50px;
+}
+
+.bub {
+  background-color: #FFFFFF;
+  width: 20%;
+  padding: 5%;
+}

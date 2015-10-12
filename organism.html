@@ -1,0 +1,29 @@
+<head>
+  <title>organism</title>
+</head>
+
+<body>
+  {{> creator }}
+  
+  <ul>
+    {{#each lives }}
+      {{> life }}
+    {{/ each }}
+  </ul>
+</body>
+
+<template name="creator">
+  <form id="cre">
+    <input id="t" type="text">
+    <button id="b">Create</button>
+  </form>
+</template>
+
+<template name="life">
+  <div class="bub" id="{{ srch }}">
+    <img class="pic" src="{{ img }}">
+  </div>
+</template>
+
+
+
