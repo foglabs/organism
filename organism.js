@@ -62,19 +62,31 @@ if (Meteor.isServer) {
         var dnaurl = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + que;
         var dnar = Meteor.http.get(dnaurl);
 
-
-
+        var dna = '';
         for(i=0; i<dnar.data.responseData.results.length; i++){ 
-          // var result = Meteor.http.get(dnar.data.responseData.results[i].url);
-          console.log(dnar.data.responseData.results[i].content);
+          var words = dnar.data.responseData.results[i].content.replace(/<.*>/, '').split(' ');
+          
+          for(i=0; i<words.length; i++){
+            words[i] = words[i].replace(/\W/, '');
+
+            if(words[i] === "" || words[i].length < 3){
+              words.splice(i, 1);
+            }
+          }
+  
+          for(c=0; c < 5; c++){
+            dna += words[Math.floor(Math.random()*words.length)] + " ";
+          }
         }
+
+        console.log(dna);
 
         idee = que.replace(/\W/g, '');
 
         Lives.insert({
           srch: idee,
           img: eemah,
-          dna: "bah",
+          dna: dna,
           createdAt: new Date()
         });
       }
