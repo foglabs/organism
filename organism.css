@@ -17,11 +17,38 @@ ul, li, div {
 }
 
 .pic {
-  max-width: 50px;
+  max-width: 80px;
 }
 
 .bub {
   background-color: #121212;
   width: 15%;
-  padding: 5%;
+  padding: .5%;
+}
+
+.spacer {
+  display: block;
+  min-width: 1px;
+  min-height: 100px;
+}
+.hspacer {
+  display: inline;
+  min-width: 1%;
+  min-height: 100px;
+}
+
+.lifebub {
+  background-color: #000000;
+  display: inline;
+  min-height: 49px;
+  min-width: 40%;
+  width: 40%;
+}
+
+.box {
+  background-color: #333333;
+  display: block;
+  min-width: 100%;
+  /*padding: 20%;*/
+  min-height: 100px;
 }
