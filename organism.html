@@ -25,17 +25,19 @@
 </template>
 
 <template name="mating">
-  <div class="lifebub">
+  <div id="lb1" class="lifebub">
     
   </div>
   <div class="lifespacer"></div>
-  <div class="lifebub">
+  <div id="lb2" class="lifebub">
     
   </div>
 </template>
 
 <template name="life">
-  <div class="bub" id="{{ srch }}">
+  <div class="bub white" id="{{ _id }}">
+    <a id="le">{{ x }}</a>
+    <a id="to">{{ y }}</a>
     <img class="pic" src="{{ img }}">
   </div>
 </template>

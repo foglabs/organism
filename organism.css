@@ -24,6 +24,7 @@ ul, li, div {
   background-color: #121212;
   width: 15%;
   padding: .5%;
+  position: absolute;
 }
 
 .spacer {
@@ -32,15 +33,15 @@ ul, li, div {
   min-height: 100px;
 }
 .hspacer {
-  display: inline;
-  min-width: 1%;
-  min-height: 100px;
+  display: inline-block;
+  min-width: 1px;
+  min-height: 1px;
 }
 
 .lifebub {
   background-color: #000000;
-  display: inline;
-  min-height: 49px;
+  display: inline-block;
+  min-height: 100px;
   min-width: 40%;
   width: 40%;
 }
@@ -50,5 +51,9 @@ ul, li, div {
   display: block;
   min-width: 100%;
   /*padding: 20%;*/
-  min-height: 100px;
+  min-height: 200px;
+}
+
+.white {
+  color: #FFFFFF;
 }

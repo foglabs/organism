@@ -1,7 +1,9 @@
 Lives = new Mongo.Collection("lives");
-// Lives.remove({});
 
 if (Meteor.isClient) {
+  // var up = true;
+
+  // Session.set('counter', )
 
   Template.body.helpers({
     lives: function () {
@@ -11,7 +13,28 @@ if (Meteor.isClient) {
 
   Template.body.events({
     "dragstop .bub" : function(e){
-      console.log(e);
+      var w = $(window).width();
+      var h = $(window).width();
+
+      // if(up){
+        Lives.update({_id: e.target.id},  { $set: {x: e.clientX/w,  y: e.clientY/h } });
+      // }
+
+      // up = false;
+      // Meteor.setTimeout(function() {
+      //   up = true;
+      // }, 1000);
+
+      Meteor.setTimeout(function() {
+
+        $("div.bub").each(function(i){
+          var dude = Lives.find({_id: this.id}).fetch()[0];
+          // $('#' + this.id).css('left', dude.x + 'px').css('top', dude.y + 'px');
+          $('#' + this.id).css('left', dude.x * w ).css('top', dude.y * h );
+        });
+
+      }, 1000);
+    
     },
     "submit #cre": function(e){
       e.preventDefault();
@@ -24,7 +47,18 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.body.rendered = function(){
+    var w = $(window).width();
+    var h = $(window).width();
+
+    $("div.bub").each(function(i){
+      var dude = Lives.find({_id: this.id}).fetch()[0];
+      $('#' + this.id).css('left', Math.floor(dude.x * w) + 'px').css('top', Math.floor(dude.y * h) + 'px');
+    });
+  }
+
   Template.life.rendered = function(){
+
     $("div.bub").mouseover(function(e) {
       // $('#' + e.currentTarget.id).css("background-color", "#222222")
       
@@ -32,6 +66,13 @@ if (Meteor.isClient) {
       $( '#' + deez ).draggable();
     });
 
+      
+    // $('.lifebub').function({
+    //   drop: function( event, ui ) {
+    //     $( this );
+    //   }
+    // });
+      
     // make connections between parents and children!
     // var p = jsPlumb.getInstance();
     // p.importDefaults({
@@ -59,17 +100,17 @@ if (Meteor.isServer) {
         var url = "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + que;
         
         var r = Meteor.http.get(url);
-        // var zero = cheerio.load(r.data.responseData.results[0]);
-        
 
         if(!r.data.responseData){
           return;
         }
 
         var eemah = r.data.responseData.results[0].url;
-
         var dnaurl = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + que;
         var dnar = Meteor.http.get(dnaurl);
+
+        var $ = cheerio.load(dnar.data.responseData.results[0]);
+        console.log($('img'));
 
         if(dnar.data.responseData != null && dnar.data.responseData != undefined ){
           var dna = '';
@@ -101,7 +142,9 @@ if (Meteor.isServer) {
           srch: idee,
           img: eemah,
           dna: dna,
-          createdAt: new Date()
+          createdAt: new Date(),
+          x: 0,
+          y: 0
         });
       }
     });
