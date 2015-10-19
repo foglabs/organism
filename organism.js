@@ -1,9 +1,12 @@
 Lives = new Mongo.Collection("lives");
 
-if (Meteor.isClient) {
-  // var up = true;
+var newCount = 1;
 
-  // Session.set('counter', )
+function randi(max){
+  return Math.floor(Math.random() * parseInt(max));
+}
+
+if (Meteor.isClient) {
 
   Template.body.helpers({
     lives: function () {
@@ -14,23 +17,15 @@ if (Meteor.isClient) {
   Template.body.events({
     "dragstop .bub" : function(e){
       var w = $(window).width();
-      var h = $(window).width();
+      var h = $(window).height();
 
-      // if(up){
-        Lives.update({_id: e.target.id},  { $set: {x: e.clientX/w,  y: e.clientY/h } });
-      // }
-
-      // up = false;
-      // Meteor.setTimeout(function() {
-      //   up = true;
-      // }, 1000);
+      Lives.update({_id: e.target.id},  { $set: {x: e.clientX/w,  y: e.clientY/h } });
 
       Meteor.setTimeout(function() {
 
-        $("div.bub").each(function(i){
+        $("img.bub").each(function(i){
           var dude = Lives.find({_id: this.id}).fetch()[0];
-          // $('#' + this.id).css('left', dude.x + 'px').css('top', dude.y + 'px');
-          $('#' + this.id).css('left', dude.x * w ).css('top', dude.y * h );
+          $('#' + this.id).css('left', dude.x * w + 'px' ).css('top', dude.y * h + 'px' );
         });
 
       }, 1000);
@@ -47,32 +42,86 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.mating.events({
+    "drop #lb1" : function(e){
+      var idz = e.toElement.id;
+
+      if(idz){
+        Session.set('zygote1', idz);
+        Lives.update({_id: idz}, { $set: { x: 200, y: 200}});  
+        $('#' + e.target.id).css('background-color', '#FFFFFF');
+      }
+    },
+    "drop #lb2" : function(e){
+      var idz = e.toElement.id;
+
+      if(idz){
+        Session.set('zygote2', idz);
+        Lives.update({_id: idz}, { $set: { x: 600, y: 600}});
+        $('#' + e.target.id).css('background-color', '#FFFFFF');
+      }
+    },
+
+    "click #mate" : function(e){
+      var zy1 = Session.get('zygote1');
+      var zy2 = Session.get('zygote2');
+
+      if(zy1 && zy2){
+        z1 = Lives.find({_id: zy1}).fetch()[0];
+        z2 = Lives.find({_id: zy2}).fetch()[0];
+
+        zd1 = z1.dna.split(' ');
+        zd2 = z2.dna.split(' ');
+
+        if(typeof z1 != 'undefined' && typeof z2 != 'undefined'){
+          var h = $(window).height();
+
+          var babysrch = zd1[randi(zd1.length)] + " " + zd2[randi(zd2.length)];
+          Meteor.call("imgsrch", babysrch, function(er, re) {});
+
+          var np1x = ( newCount % 5 )/ 5;
+          var np1y = (Math.floor(newCount/5) * 220)/h;
+          var np2x = ( (newCount+1) % 5 )/ 5;
+          var np2y = (Math.floor((newCount + 1)/5) * 220)/h;
+
+          Lives.update({_id: zy1},  { $set: {x: np1x,  y: np1y } });
+          Lives.update({_id: zy2},  { $set: {x: np2x,  y: np2y } });
+          newCount += 2;
+
+          var w = $(window).width();
+          var h = $(window).height()
+
+          $("#" + zy1).css('left', Math.floor(np1x * w) + 'px').css('top', Math.floor(np1y * h) + 'px' );
+          $("#" + zy2).css('left', Math.floor(np2x * w) + 'px').css('top', Math.floor(np2y * h) + 'px' );
+
+          $('.lifebub').css('background-color', '#000000');
+        }
+      }
+    }
+  });
+
   Template.body.rendered = function(){
     var w = $(window).width();
-    var h = $(window).width();
+    var h = $(window).height();
 
-    $("div.bub").each(function(i){
+    $("img.bub").each(function(i){
       var dude = Lives.find({_id: this.id}).fetch()[0];
       $('#' + this.id).css('left', Math.floor(dude.x * w) + 'px').css('top', Math.floor(dude.y * h) + 'px');
     });
   }
 
+  Template.mating.rendered = function(){
+    $('#lb1').droppable();
+    $('#lb2').droppable();
+  }
+
   Template.life.rendered = function(){
 
-    $("div.bub").mouseover(function(e) {
-      // $('#' + e.currentTarget.id).css("background-color", "#222222")
-      
+    $("img.bub").mouseover(function(e) {
       var deez = e.currentTarget.id;
       $( '#' + deez ).draggable();
     });
 
-      
-    // $('.lifebub').function({
-    //   drop: function( event, ui ) {
-    //     $( this );
-    //   }
-    // });
-      
     // make connections between parents and children!
     // var p = jsPlumb.getInstance();
     // p.importDefaults({
@@ -109,8 +158,7 @@ if (Meteor.isServer) {
         var dnaurl = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + que;
         var dnar = Meteor.http.get(dnaurl);
 
-        var $ = cheerio.load(dnar.data.responseData.results[0]);
-        console.log($('img'));
+        // var $ = cheerio.load(dnar.data.responseData.results[0]);
 
         if(dnar.data.responseData != null && dnar.data.responseData != undefined ){
           var dna = '';

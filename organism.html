@@ -12,9 +12,7 @@
   </ul>
   <br>
 
-  <div class="spacer"></div>
   <div class="box">{{> mating }}</div>
-
 </body>
 
 <template name="creator">
@@ -25,21 +23,17 @@
 </template>
 
 <template name="mating">
-  <div id="lb1" class="lifebub">
-    
-  </div>
-  <div class="lifespacer"></div>
-  <div id="lb2" class="lifebub">
-    
+  <div id="space">
+    <div id="lb1" class="lifebub"></div>
+    <div class="lifespacer"></div>
+    <div id="lb2" class="lifebub">
+    </div>
+    <button id="mate">Mate</button>
   </div>
 </template>
 
 <template name="life">
-  <div class="bub white" id="{{ _id }}">
-    <a id="le">{{ x }}</a>
-    <a id="to">{{ y }}</a>
-    <img class="pic" src="{{ img }}">
-  </div>
+  <img id="{{ _id }}" class="pic bub" src="{{ img }}">
 </template>
 
 

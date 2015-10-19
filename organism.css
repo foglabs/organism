@@ -16,14 +16,18 @@ ul, li, div {
   display: inline;
 }
 
+/*#space {
+
+}
+*/
 .pic {
-  max-width: 80px;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .bub {
   background-color: #121212;
-  width: 15%;
-  padding: .5%;
+  width: 20%;
   position: absolute;
 }
 
@@ -41,17 +45,20 @@ ul, li, div {
 .lifebub {
   background-color: #000000;
   display: inline-block;
-  min-height: 100px;
+  min-height: 200px;
   min-width: 40%;
   width: 40%;
 }
 
 .box {
+  z-index: -10;
   background-color: #333333;
-  display: block;
   min-width: 100%;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
   /*padding: 20%;*/
-  min-height: 200px;
 }
 
 .white {
