@@ -21,17 +21,13 @@ if (Meteor.isClient) {
 
       Lives.update({_id: e.target.id},  { $set: {x: e.clientX/w,  y: e.clientY/h } });
 
-      Meteor.setTimeout(function() {
-
-        $("img.bub").each(function(i){
-          var dude = Lives.find({_id: this.id}).fetch()[0];
-          $('#' + this.id).css('left', dude.x * w + 'px' ).css('top', dude.y * h + 'px' );
-        });
-
-      }, 1000);
+      $("img.bub").each(function(i){
+        var dude = Lives.find({_id: this.id}).fetch()[0];
+        $('#' + this.id).css('left', dude.x * w + 'px' ).css('top', dude.y * h + 'px' );
+      });
     
     },
-    "submit #cre": function(e){
+    "submit #cre" : function(e){
       e.preventDefault();
       var indo = $('#t');
 
@@ -42,24 +38,41 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.dell.events({
+    "drop #byebye" : function(e){
+      var idz = e.toElement.id;
+      var thiz = Lives.find({_id: idz});
+
+      if(idz && thiz){
+        Lives.remove({_id: idz});
+      }
+    }
+  });
+
   Template.mating.events({
     "drop #lb1" : function(e){
       var idz = e.toElement.id;
+      var yo = Lives.find({_id: idz}).fetch()[0].img;
 
       if(idz){
         Session.set('zygote1', idz);
-        Lives.update({_id: idz}, { $set: { x: 200, y: 200}});  
+        Lives.update({_id: idz}, { $set: { x: 0.5, y: 0.5}});  
         $('#' + e.target.id).css('background-color', '#FFFFFF');
       }
+
+      $('#lbi1').attr('src', yo);
     },
     "drop #lb2" : function(e){
       var idz = e.toElement.id;
+      var yo = Lives.find({_id: idz}).fetch()[0].img;
 
       if(idz){
         Session.set('zygote2', idz);
-        Lives.update({_id: idz}, { $set: { x: 600, y: 600}});
+        Lives.update({_id: idz}, { $set: { x: 0.5, y: 0.5}});
         $('#' + e.target.id).css('background-color', '#FFFFFF');
       }
+
+      $('#lbi2').attr('src', yo);
     },
 
     "click #mate" : function(e){
@@ -94,6 +107,17 @@ if (Meteor.isClient) {
           $("#" + zy1).css('left', Math.floor(np1x * w) + 'px').css('top', Math.floor(np1y * h) + 'px' );
           $("#" + zy2).css('left', Math.floor(np2x * w) + 'px').css('top', Math.floor(np2y * h) + 'px' );
 
+          // var p = jsPlumb.getInstance();
+          // p.importDefaults({
+          //   Connector : [ "Bezier", { curviness: 150 } ],
+          //   Anchors : [ "TopCenter", "BottomCenter" ]
+          // });
+
+          // p.connect({
+          //   source: $('#' + zy1)[0].id,
+          //   target: $('#' + zy2)[0].id
+          // });
+
           $('.lifebub').css('background-color', '#000000');
         }
       }
@@ -103,6 +127,8 @@ if (Meteor.isClient) {
   Template.body.rendered = function(){
     var w = $(window).width();
     var h = $(window).height();
+
+    $("body").animate({backgroundColor: '#FF0000'}, 1000);
 
     $("img.bub").each(function(i){
       var dude = Lives.find({_id: this.id}).fetch()[0];
@@ -115,25 +141,16 @@ if (Meteor.isClient) {
     $('#lb2').droppable();
   }
 
+  Template.dell.rendered = function(){
+    $('#byebye').droppable();
+  }
+
   Template.life.rendered = function(){
 
     $("img.bub").mouseover(function(e) {
       var deez = e.currentTarget.id;
       $( '#' + deez ).draggable();
     });
-
-    // make connections between parents and children!
-    // var p = jsPlumb.getInstance();
-    // p.importDefaults({
-    //   Connector : [ "Bezier", { curviness: 150 } ],
-    //   Anchors : [ "TopCenter", "BottomCenter" ]
-    // });
-
-    // p.connect({
-    //   source: deez,
-    //   target: 'butt'
-    // });
-    // 
   }
 }
 
@@ -182,7 +199,6 @@ if (Meteor.isServer) {
             }
           }
         }
-        console.log(dna);
 
         idee = que.replace(/\W/g, '');
 

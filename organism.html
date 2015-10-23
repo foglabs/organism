@@ -4,6 +4,8 @@
 
 <body>
   {{> creator }}
+  {{> dell }}
+
   
   <ul>
     {{#each lives }}
@@ -23,10 +25,14 @@
 </template>
 
 <template name="mating">
-  <div id="space">
-    <div id="lb1" class="lifebub"></div>
-    <div class="lifespacer"></div>
+  <div id="matespace">
+    <div id="lb1" class="lifebub">
+
+      <img id="lbi1" src="" class="zypic">
+    </div>
     <div id="lb2" class="lifebub">
+
+      <img id="lbi2" src="" class="zypic">
     </div>
     <button id="mate">Mate</button>
   </div>
@@ -36,5 +42,11 @@
   <img id="{{ _id }}" class="pic bub" src="{{ img }}">
 </template>
 
+
+<template name="dell">
+  <div id="byebye">
+    
+  </div>
+</template>
 
 

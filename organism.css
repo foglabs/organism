@@ -14,8 +14,49 @@ ul {
 
 ul, li, div {
   display: inline;
+  padding: 0;
 }
 
+img {
+  border-radius: 4px;
+  border: 3px solid #772288;
+}
+
+@keyframes epilepsy {
+    from {
+        background: #002299;
+        color:#440022;
+    }
+    to {
+        background: #440022;
+        color:#002299;
+    }
+}
+
+img {
+    animation-duration: 0.9s;
+    animation-name: epilepsy;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes slowz {
+    from {
+        background: #002244;
+        color:#A122A2;
+    }
+    to {
+        background: #212282;
+        color:#002244;
+    }
+}
+
+body {
+    animation-duration: 1.9s;
+    animation-name: slowz;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
 /*#space {
 
 }
@@ -23,6 +64,18 @@ ul, li, div {
 .pic {
   max-width: 200px;
   max-height: 200px;
+}
+
+.zypic {
+  max-width: 100px;
+  width: 100px;
+  height: 100px;
+  max-height: 100px;
+}
+
+#matespace {
+  max-height: 200px;
+  overflow: hidden;
 }
 
 .bub {
@@ -36,16 +89,12 @@ ul, li, div {
   min-width: 1px;
   min-height: 100px;
 }
-.hspacer {
-  display: inline-block;
-  min-width: 1px;
-  min-height: 1px;
-}
 
 .lifebub {
   background-color: #000000;
   display: inline-block;
   min-height: 200px;
+  max-height: 200px;
   min-width: 40%;
   width: 40%;
 }
@@ -63,4 +112,17 @@ ul, li, div {
 
 .white {
   color: #FFFFFF;
+}
+
+#byebye {
+  width: 10%;
+  display: inline-block;
+  border: 2px solid #FF0000;
+  background-color: #660000;
+  min-height: 20px;
+  min-width: 1px;
+}
+
+.inb {
+  display: inline-block;
 }
