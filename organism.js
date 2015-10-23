@@ -41,9 +41,7 @@ if (Meteor.isClient) {
   Template.dell.events({
     "drop #byebye" : function(e){
       var idz = e.toElement.id;
-      var thiz = Lives.find({_id: idz});
-
-      if(idz && thiz){
+      if(idz){
         Lives.remove({_id: idz});
       }
     }
@@ -60,7 +58,8 @@ if (Meteor.isClient) {
         $('#' + e.target.id).css('background-color', '#FFFFFF');
       }
 
-      $('#lbi1').attr('src', yo);
+      $('#lb1').css('background-image', 'url(' + yo + ')');
+      $('#lbi1').attr('src', yo).addClass('flick');
     },
     "drop #lb2" : function(e){
       var idz = e.toElement.id;
@@ -72,7 +71,8 @@ if (Meteor.isClient) {
         $('#' + e.target.id).css('background-color', '#FFFFFF');
       }
 
-      $('#lbi2').attr('src', yo);
+      $('#lb2').css('background-image', 'url(' + yo + ')');
+      $('#lbi2').attr('src', yo).addClass('flick');;
     },
 
     "click #mate" : function(e){
@@ -119,6 +119,7 @@ if (Meteor.isClient) {
           // });
 
           $('.lifebub').css('background-color', '#000000');
+          $('.lifebub img').removeClass('flick');
         }
       }
     }

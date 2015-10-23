@@ -22,6 +22,36 @@ img {
   border: 3px solid #772288;
 }
 
+input[type="text"] {
+  background-color: #000000;
+  border-radius: 10px;
+}
+
+.butts {
+  color: #FFAAAA;
+  margin: 5px;
+  background-color: #000000;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@keyframes flicka {
+    from {
+        border: 3px solid #0022BB;
+    }
+    to {
+        border: 3px solid #AA0022;
+    }
+}
+
+.flick {
+    animation-duration: 0.08s;
+    animation-name: flicka;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
 @keyframes epilepsy {
     from {
         background: #002299;
@@ -91,6 +121,7 @@ body {
 }
 
 .lifebub {
+  border: 3px solid #998877;
   background-color: #000000;
   display: inline-block;
   min-height: 200px;
@@ -101,7 +132,7 @@ body {
 
 .box {
   z-index: -10;
-  background-color: #333333;
+  background-color: #110011;
   min-width: 100%;
   position: fixed;
   width: 100%;
@@ -114,13 +145,21 @@ body {
   color: #FFFFFF;
 }
 
+#deli {
+  float: right;
+  position: relative;
+  top: -35px;
+  height: 35px;
+  max-height: 35px;
+}
+
 #byebye {
   width: 10%;
   display: inline-block;
   border: 2px solid #FF0000;
   background-color: #660000;
-  min-height: 20px;
-  min-width: 1px;
+  min-height: 35px;
+  min-width: 150px;
 }
 
 .inb {
