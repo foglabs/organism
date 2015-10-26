@@ -148,9 +148,8 @@ body {
 #deli {
   float: right;
   position: relative;
-  top: -35px;
-  height: 35px;
-  max-height: 35px;
+  height: 50px;
+  max-height: 50px;
 }
 
 #byebye {
@@ -158,10 +157,47 @@ body {
   display: inline-block;
   border: 2px solid #FF0000;
   background-color: #660000;
-  min-height: 35px;
+  min-height: 50px;
   min-width: 150px;
 }
 
-.inb {
+.nav {
+  background-color: #000000;
+  display: block;
+  padding: .5%;
+  min-height: 60px;
+  height: 60px;
+}
+
+.storebox {
+  background-color: #FFFFFF;
   display: inline-block;
+  min-height: 40px;
+  border: 1px solid #000000;
+}
+
+.W25 {
+  width: 25%;
+  min-width: 25%;
+  max-width: 25%;
+}
+
+.W33 {
+  width: 33%;
+  min-width: 33%;
+  max-width: 33%;
+}
+
+.W50 {
+  width: 50%;
+  min-width: 50%;
+  max-width: 50%;
+}
+
+.left {
+  float: left;
+}
+
+.oh {
+  overflow: hidden;
 }

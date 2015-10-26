@@ -3,9 +3,16 @@
 </head>
 
 <body>
-  {{> creator }}
-  {{> dell }}
-
+  <div class="nav">
+    <span class="W25 left">{{> creator }}</span>
+    
+    <span class="W50 left">
+      {{> storage }}
+    </span>
+    <span class="W25 left">
+      {{> dell }}
+    </span>
+  </div>
   
   <ul>
     {{#each lives }}
@@ -19,7 +26,7 @@
 
 <template name="creator">
   <form id="cre">
-    <input id="t" type="text">
+    <input id="t" type="text" class="white">
     <button class="butts" id="b">Create</button>
   </form>
 </template>
@@ -42,13 +49,15 @@
   <img id="{{ _id }}" class="pic bub" src="{{ img }}">
 </template>
 
-
 <template name="dell">
   <div id="deli">
     <div id="byebye">
-      
     </div>
   </div>
 </template>
 
-
+<template name="storage">
+  <span class="W33 left storebox" id="s1"></span>
+  <span class="W33 left storebox" id="s2"></span>
+  <span class="W33 left storebox" id="s3"></span>
+</template>
